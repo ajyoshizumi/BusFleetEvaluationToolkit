@@ -1,0 +1,1 @@
+Contains TransLoc time-location data sorted by date AND vehicle.

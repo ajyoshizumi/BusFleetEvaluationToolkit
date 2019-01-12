@@ -1,0 +1,1 @@
+Contains the results of the Emissions Mapper tool within the ArcGIS Pro project.
