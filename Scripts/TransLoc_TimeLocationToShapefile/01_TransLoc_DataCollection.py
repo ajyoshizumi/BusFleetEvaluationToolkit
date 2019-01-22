@@ -1,6 +1,6 @@
 #---------------------------------------
 # TransLoc_DataCollection.py
-# Last Updated: 12 January 2019
+# Last Updated: 22 January 2019
 # Author: Alexander Yoshizumi
 #
 # Collects real-time time-location bus data from TransLoc's API and stores the
@@ -30,29 +30,32 @@ except:
 
 # Save API key to object
 # An API key can be aquired from https://market.mashape.com/
-APIkey = {'X-Mashape-Key': [API Key Goes Here]}
+APIkey = {'X-Mashape-Key':[API Key Goes Here]}
 
 # Parameters for accessing the TransLoc API | https://transloc-api-1-2.p.mashape.com/vehicles.{format}
 vehiclesURL = 'https://transloc-api-1-2.p.mashape.com/vehicles.json'
 # 12: Triangle Transit (TTA)
 agency = ('12')
 # agencyParam establishes from which transportation agencies the code is pulling data
-agencyParam = {'agencies':agency}
+agenciesParam = {'agencies':agency}
 # callbackParam acts as the callback function name for JSONP
 callbackParam = {'callback':'call'}
+# geo_areaParam acts as a geographic filter to avoid incorrect data
+geo_areaParam = {'geo_area':'36.35622,-77.94912|35.37579,-79.67673'}
 
 # Joining relevant parameters into single object
-parameters = agencyParam.copy()
+parameters = agenciesParam.copy()
 parameters.update(callbackParam)
+parameters.update(geo_areaParam)
 
 # Establishing a cycle tracker and starting time variable
 i = 0
 startTime = time.time()
 
 # Number of cycles that we want to perform
-numberOfCycles = 86400
+numberOfCycles = 5
 # How long in seconds each cycle lasts
-cycleLength = 30
+cycleLength = 2
     
 # Create a CSV - with today's date - that will store the data
 todayDate = time.strftime('%Y-%m-%d')

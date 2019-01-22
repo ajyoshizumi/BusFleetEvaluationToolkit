@@ -1,6 +1,6 @@
 #---------------------------------------
 # TransLoc_MergeShapefiles.py
-# Last Updated: 12 January 2019
+# Last Updated: 20 January 2019
 # Author: Alexander Yoshizumi
 #
 # Script merges all of the emissions shapefiles into a single shapefile
@@ -26,7 +26,7 @@ i = 0
 # Iterate through all shapefiles in the "..\\Data\\EmissionsShapefiles" directory with specified date
 directory = os.path.join('..','..','Data','Shapefiles')
 for filename in os.listdir(path = directory):
-    if filename.startswith(date) and filename.endswith(".shp"): 
+    if filename.startswith(date) and filename.endswith(".shp"):
         filepath = os.path.join(directory, filename)
         # If statement to establish geodataframe upon which new data will be appended
         if i == 0:

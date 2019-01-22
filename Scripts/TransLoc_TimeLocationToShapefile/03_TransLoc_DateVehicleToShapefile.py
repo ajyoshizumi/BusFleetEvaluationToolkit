@@ -1,6 +1,6 @@
 #---------------------------------------
 # TransLoc_DateVehicleToShapefile.py
-# Last Updated: 12 January 2019
+# Last Updated: 20 January 2019
 # Author: Alexander Yoshizumi
 #
 # Script iterates through every CSV file in the directory "..\\Data\\Data_By_DateVehicle".
@@ -27,7 +27,7 @@ date = '2018-11-01'
 # Iterate through all CSV files in the "..\\Data\\DataVehicle" directory with specified date
 directory = os.path.join('..','..','Data','Data_By_DateVehicle')
 for filename in os.listdir(path = directory):
-    if filename.startswith(date) and filename.endswith(".csv"): 
+    if filename.startswith(date) and filename.endswith(".csv") and filename[11:18].isdigit(): 
         filepath = os.path.join(directory, filename)
         
         # Read in the relevant CSV file
@@ -125,8 +125,12 @@ for filename in os.listdir(path = directory):
             gdf = gdf.rename(columns={'generated_on':'gen_on','collection_date':'clctn_date','standing_capacity':'stand_cap','description':'desc','seating_capacity':'seat_cap','last_updated_on':'lst_update','passenger_load':'psngr_load','tracking_status':'trk_status'})
             
             # Save geodataframe out to a shapefile
-            filename = str(gdf['lst_update'][0][0:10]) + '_' + str(gdf['vehicle_id'][0]) + '_Line.shp'
-            gdf.to_file(driver = 'ESRI Shapefile', filename = os.path.join('..','..','Data','Shapefiles',filename))
-            continue
+            try:
+                filename = str(gdf['lst_update'][0][0:10]) + '_' + str(gdf['vehicle_id'][0]) + '_Line.shp'
+                gdf.to_file(driver = 'ESRI Shapefile', filename = os.path.join('..','..','Data','Shapefiles',filename))
+                continue
+            except:
+                print('Error: A geodataframe has no data')
+                continue
     else:
         continue
